@@ -1,16 +1,20 @@
 import requests
 
-query = "https://v2.jokeapi.dev/joke/Any?lang=de&blacklistFlags=nsfw,religious,racist,sexist,explicit"
 
-response = requests.get(query).json()
+def get_joke(language):
+    return extract_joke(call_joke_api(language))
 
-print(response)
 
-joke = []
-if response['type'] == "twopart":
-    joke.append(response['setup'])
-    joke.append(response['delivery'])
-if response['type'] == 'single':
-    joke.append(response['joke'])
+def call_joke_api(language):
+    query = f'https://v2.jokeapi.dev/joke/Any?lang={language}&blacklistFlags=nsfw,religious,racist,sexist,explicit'
+    return requests.get(query).json()
 
-print(joke)
+
+def extract_joke(response):
+    result = []
+    if response['type'] == 'twopart':
+        result.append(response['setup'])
+        result.append(response['delivery'])
+    if response['type'] == 'single':
+        result.append(response['joke'])
+    return result
