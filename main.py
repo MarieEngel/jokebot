@@ -73,7 +73,7 @@ def main():
 
     logger.info(f"Starting webhook on PORT {PORT}")
     updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TOKEN)
-    updater.bot.setWebhook(f"https://jokebot.herokuapp.com/{TOKEN}")
+    updater.bot.setWebhook(f"https://joke-api-bot.herokuapp.com/{TOKEN}")
 
     updater.idle()
 
