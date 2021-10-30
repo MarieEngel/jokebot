@@ -27,7 +27,7 @@ LANGUAGES = {
     'Português': 'pt',
 }
 
-PORT = int(os.environ.get('PORT', '8443'))
+PORT = 8443
 TOKEN = os.environ.get('TOKEN', '')
 
 def start(update: Update, _: CallbackContext) -> int:
