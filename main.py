@@ -27,7 +27,7 @@ LANGUAGES = {
     'Português': 'pt',
 }
 
-PORT = 8443
+PORT = int(os.environ.get('PORT', '8443'))
 TOKEN = os.environ.get('TOKEN', '')
 
 def start(update: Update, _: CallbackContext) -> int:
@@ -72,8 +72,11 @@ def main():
     updater.dispatcher.add_handler(conv_handler)
 
     logger.info(f"Starting webhook on PORT {PORT}")
-    updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TOKEN)
-    updater.bot.setWebhook(f"https://joke-api-bot.herokuapp.com/{TOKEN}")
+    updater.start_webhook(
+        listen="0.0.0.0",
+        port=PORT,
+        url_path=TOKEN,
+        webhook_url=f"https://joke-api-bot.herokuapp.com/{TOKEN}")
 
     updater.idle()
 
