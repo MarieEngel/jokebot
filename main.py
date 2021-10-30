@@ -11,20 +11,21 @@ from telegram.ext import (
 )
 from telegram.ext.filters import Filters
 from telegram.ext.messagehandler import MessageHandler
+from joke_api import get_joke
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
 )
 logger = logging.getLogger(__name__)
 
-LANGUAGES = [
-    'cs',
-    'de',
-    'en',
-    'es',
-    'fr',
-    'pt',
-]
+LANGUAGES = {
+    'Čeština': 'cs',
+    'Deutsch': 'de',
+    'English': 'en',
+    'Español': 'es',
+    'Français': 'fr',
+    'Português': 'pt',
+}
 
 PORT = int(os.environ.get('PORT', '8443'))
 TOKEN = os.environ.get('TOKEN', '')
@@ -45,7 +46,7 @@ def language_selected(update: Update, _: CallbackContext) -> int:
     logger.info(f"language selected: {update.callback_query.data}")
 
     query = update.callback_query
-    joke = [update.callback_query.data]
+    joke = get_joke(LANGUAGES[update.callback_query.data])
 
     query.answer()
 
