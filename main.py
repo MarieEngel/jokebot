@@ -1,8 +1,4 @@
-import requests
+from joke_api import get_joke
 
-query = "https://v2.jokeapi.dev/joke/Any?lang=de&blacklistFlags=nsfw,religious,racist,sexist,explicit"
-
-response = requests.get(query)
-payload = response.json()
-
-print(payload)
+if __name__ == '__main__':
+    print(get_joke('en'))
